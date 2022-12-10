@@ -1,14 +1,15 @@
 # SISTEMA DE COLEGIO PROFESIONAL CON STACK (TALL)
 
-<img height = 200 src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img>
+<center><img height = 400 src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img></center>
 
 **Comandos de inicio:** <br>
 npm install <br>
 npm run dev <br>
+composer install <br>
 composer update <br>
 php artisan migrate --seed <br>
-php artisan serve <br>
 php artisan storage:link <br>
+php artisan serve <br>
 
 <br>
 
