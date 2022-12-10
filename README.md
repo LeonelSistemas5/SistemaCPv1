@@ -1,15 +1,25 @@
-Comandos de inicio:
--> npm install
--> composer install
+# SISTEMA DE COLEGIO PROFESIONAL CON STACK TALL
 
-Cuenta 1:
--> leonel@domain.com
--> leonel12345
+<img src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img>
 
-Cuenta 2:
--> joseluis@domain.com
--> joseluis12345
+**Comandos de inicio:** <br>
+npm install <br>
+composer install <br>
 
-Cuenta 3:
--> cesar@domain.com
--> cesar12345
+<br><br>
+
+**Cuenta 1:** <br>
+Correo = leonel@domain.com <br>
+Contraseña = leonel12345 <br>
+
+<br><br>
+
+**Cuenta 2:** <br>
+Correo = joseluis@domain.com <br>
+Contraseña = joseluis12345 <br>
+
+<br><br>
+
+**Cuenta 3:** <br>
+Correo = cesar@domain.com <br>
+Contraseña = cesar12345 <br>
