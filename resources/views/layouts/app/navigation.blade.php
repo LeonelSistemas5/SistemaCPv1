@@ -36,9 +36,7 @@
 <x-nav.link route="admin.users.index" icon="fas fa-users">Users</x-nav.link>
 @endif
 
-<x-nav.group label="Cursos" route="admin.cursos.index" icon="fa-solid fa-book">
-
-</x-nav.group>
+<x-nav.link route="admin.cursos.index" icon="fa-solid fa-book">Cursos</x-nav.link>
 
 <x-nav.group label="Cajas" route="admin.cajas" icon="fa-solid fa-cash-register">
     <x-nav.group-item route="admin.cajas.pagos" icon="far fa-circle">Pagos</x-nav.group-item>

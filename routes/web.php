@@ -59,7 +59,7 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
     Route::get('users/{user}/edit', EditUser::class)->name('admin.users.edit');
     Route::get('users/{user}', ShowUser::class)->name('admin.users.show');
 
-    Route::get('cursos')->name('admin.cursos.index');
+    Route::get('cursos', Cursos::class)->name('admin.cursos.index');
 
     Route::get('cajas')->name('admin.cajas');
     Route::get('cajas/pagos', Pagos::class)->name('admin.cajas.pagos');
