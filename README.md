@@ -1,15 +1,34 @@
 # SISTEMA DE COLEGIO PROFESIONAL CON STACK (TALL)
 
-<center><img height = 400 src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img></center>
+<img height = 380 src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img>
 
-**Comandos de inicio:** <br>
-npm install <br>
-npm run dev <br>
-composer install <br>
-composer update <br>
-php artisan migrate --seed <br>
-php artisan storage:link <br>
-php artisan serve <br>
+**Comando para clonar el repositorio**
+```shell
+git clone -b develop https://github.com/LeonelSistemas5/SistemaCPv1.git
+```
+
+**Comandos de inicio:**
+```shell
+npm install
+```
+```shell
+npm run dev
+```
+```shell
+composer install
+```
+```shell
+composer update
+```
+```shell
+php artisan migrate --seed
+```
+```shell
+php artisan storage:link
+```
+```shell
+php artisan serve
+```
 
 <br>
 
