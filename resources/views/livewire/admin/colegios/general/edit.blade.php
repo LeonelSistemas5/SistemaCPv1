@@ -2,7 +2,7 @@
 
     <h3 class="mb-4">Datos del Colegio</h3>
 
-    <x-form wire:submit.prevent="update" method="put">
+    <x-form wire:submit.prevent="update" method="put" class="mb-4">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 

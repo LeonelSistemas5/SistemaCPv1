@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Admin\Cajas\Conceptos;
+namespace App\Http\Livewire\Admin\Colegios\Sedes;
 
 use App\Http\Livewire\Base;
-use App\Models\Concepto;
+use App\Models\Sede;
 use Illuminate\Contracts\View\View;
 use Livewire\WithPagination;
 use Illuminate\Validation\ValidationException;
@@ -13,12 +13,14 @@ use Illuminate\Validation\ValidationException;
 use function abort_if_cannot;
 use function view;
 
-class Conceptos extends Base
+class Sedes extends Base
 {
     use WithPagination;
 
     public    $denominacion      = '';
-    public    $precio            = '';
+    public    $direccion = '';
+    public    $telefono = '';
+    public    $celular = '';
 
     public    $paginate   = '';
     public    $search       = '';
@@ -27,12 +29,19 @@ class Conceptos extends Base
     protected $listeners  = ['alert' => 'alert'];
 
     protected array $rules = [
-        'denominacion' => 'required|string|max:191'
+        'denominacion' => 'required|string|max:191',
+        'direccion' => 'max:191',
+        'telefono' => 'max:15',
+        'celular' => 'max:9|min:9'
     ];
 
     protected array $messages = [
         'denominacion.required' => 'La denominación es requerida',
-        'denominacion.max' => 'La denominación no debe exceder de 191 caracteres'
+        'denominacion.max' => 'La denominación no debe exeder de 191 caracteres',
+        'direccion.max' => 'La direccion no debe exeder de 191 caracteres',
+        'telefono.max' => 'El teléfono no debe exeder de 15 caracteres',
+        'celular.max' => 'El celular debe contener 9 caracteres',
+        'celular.min' => 'El celular debe contener 9 caracteres'
     ];
 
     /**
@@ -45,7 +54,7 @@ class Conceptos extends Base
 
     public function render(): View
     {
-        return view('livewire.admin.cajas.conceptos.index');
+        return view('livewire.admin.colegios.sedes.index');
     }
 
     public function updating(): void
@@ -61,7 +70,7 @@ class Conceptos extends Base
 
     public function builder()
     {
-        return Concepto::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        return Sede::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
     }
 
     public function sortBy(string $field): void
@@ -75,7 +84,7 @@ class Conceptos extends Base
         $this->sortField = $field;
     }
 
-    public function conceptos()
+    public function sedes()
     {
         $query = $this->builder();
 
@@ -88,27 +97,33 @@ class Conceptos extends Base
 
     public function edit($id): void
     {
-        $concepto = $this->builder()->findOrFail($id);
-        $this->denominacion = $concepto->denominacion;
-        $this->precio = $concepto->precio;
+        $sede = $this->builder()->findOrFail($id);
+
+        $this->denominacion = $sede->denominacion;
+        $this->direccion = $sede->direccion;
+        $this->telefono = $sede->telefono;
+        $this->celular = $sede->celular;
     }
 
     public function update($id): void
     {
         $this->validate();
         $this->builder()->findOrFail($id)->update([
-            'denominacion' => $this->denominacion
+            'denominacion' => $this->denominacion,
+            'direccion' => $this->direccion,
+            'telefono' => $this->telefono,
+            'celular' => $this->celular
         ]);
         
         add_user_log([
-            'title'        => 'Concepto actualizado '.$this->denominacion,
-            'link'         => route('admin.cajas.conceptos', ['concepto' => $id]),
+            'title'        => 'Sede actualizado '.$this->denominacion,
+            'link'         => route('admin.colegios.sedes', ['sede' => $id]),
             'reference_id' => $id,
-            'section'      => 'Conceptos',
+            'section'      => 'Sedes',
             'type'         => 'updated'
         ]);
 
-        flash('Concepto actualizado satisfactoriamente')->success();
+        flash('Sede actualizada satisfactoriamente')->success();
 
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');
@@ -116,26 +131,26 @@ class Conceptos extends Base
 
     public function delete($id): void
     {
-        abort_if_cannot('delete_concepto');
+        abort_if_cannot('delete_sede');
 
         $this->builder()->findOrFail($id)->delete();
 
         add_user_log([
-            'title'        => 'Concepto eliminado '.$this->denominacion,
-            'link'         => route('admin.cajas.conceptos', ['concepto' => $id]),
+            'title'        => 'Sede eliminada '.$this->denominacion,
+            'link'         => route('admin.colegios.sedes', ['sede' => $id]),
             'reference_id' => $id,
-            'section'      => 'Conceptos',
+            'section'      => 'Sedes',
             'type'         => 'deleted'
         ]);
 
-        flash('Concepto eliminado satisfactoriamente')->error();
+        flash('Sede eliminada satisfactoriamente')->error();
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function cleanModal(): void
+    public function cancel(): void
     {
-        $this->denominacion = '';
-        $this->precio = '';
+        $this->reset();
+        $this->dispatchBrowserEvent('close-modal');
     }
 }

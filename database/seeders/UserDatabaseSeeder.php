@@ -15,14 +15,6 @@ class UserDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        Permission::firstOrCreate(['name' => 'view_users', 'label' => 'View Users', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'view_users_profiles', 'label' => 'View Users Profiles', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'view_users_activity', 'label' => 'View Users Activity', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'add_users', 'label' => 'Add Users', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'edit_users', 'label' => 'Edit Users', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'edit_own_account', 'label' => 'Edit Own Account', 'module' => 'Users']);
-        Permission::firstOrCreate(['name' => 'delete_users', 'label' => 'Delete Users', 'module' => 'Users']);
-
         //create developer uncomment to use when seeding
         
         $user = User::firstOrCreate(['email' => 'leonel@domain.com'], [
@@ -32,7 +24,7 @@ class UserDatabaseSeeder extends Seeder
             'password'             => bcrypt('leonel12345'),
             'is_active'            => 1,
             'sede_id'              => 1,
-            'colegiado_id'         => 1,
+            'persona_id'         => 1,
             'oficina_id'           => 4,
             'is_office_login_only' => 0
         ]);
@@ -62,7 +54,7 @@ class UserDatabaseSeeder extends Seeder
             'password'             => bcrypt('joseluis12345'),
             'is_active'            => 1,
             'sede_id'              => 1,
-            'colegiado_id'         => 2,
+            'persona_id'         => 2,
             'oficina_id'           => 3,
             'is_office_login_only' => 0
         ]);
@@ -93,7 +85,7 @@ class UserDatabaseSeeder extends Seeder
             'password'             => bcrypt('cesar12345'),
             'is_active'            => 1,
             'sede_id'              => 1,
-            'colegiado_id'         => 3,
+            'persona_id'         => 3,
             'oficina_id'           => 5,
             'is_office_login_only' => 0
         ]);
@@ -109,6 +101,36 @@ class UserDatabaseSeeder extends Seeder
         $user->save();
 
         $role = Role::where('name', 'admin')->first();
+        RoleUser::firstOrCreate([
+            'role_id' => $role->id,
+            'user_id' => $user->id
+        ]);
+
+
+        //create developer uncomment to use when seeding
+        
+        $user = User::firstOrCreate(['email' => 'rosmel@domain.com'], [
+            'name'                 => 'Rosmel',
+            'slug'                 => 'rosmel',
+            'email'                => 'rosmel@domain.com',
+            'password'             => bcrypt('rosmel12345'),
+            'is_active'            => 1,
+            'sede_id'              => 1,
+            'colegiado_id'         => 1,
+            'is_office_login_only' => 0
+        ]);
+
+        //generate image
+        $name      = get_initials($user->name);
+        $id        = $user->id.'.png';
+        $path      = 'users/';
+        $imagePath = create_avatar($name, $id, $path);
+
+        //save image
+        $user->image = $imagePath;
+        $user->save();
+
+        $role = Role::where('name', 'colegiado')->first();
         RoleUser::firstOrCreate([
             'role_id' => $role->id,
             'user_id' => $user->id

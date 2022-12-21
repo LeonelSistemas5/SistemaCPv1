@@ -2,16 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Admin\Cajas\Conceptos;
+namespace App\Http\Livewire\Admin\Colegios\Capitulos;
 
 use App\Http\Livewire\Base;
-use App\Models\Concepto;
+use App\Models\Capitulo;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\ValidationException;
+
+use function add_user_log;
+use function view;
 
 class Create extends Base
 {
     public $denominacion = '';
-    public $precio = '';
 
     protected array $rules = [
         'denominacion' => 'required|string|max:191'
@@ -32,27 +35,26 @@ class Create extends Base
 
     public function render(): View
     {
-        return view('livewire.admin.cajas.conceptos.create');
+        return view('livewire.admin.colegios.capitulos.create');
     }
 
     public function store(): void
     {
         $this->validate();
 
-        $concepto = Concepto::create([
+        $capitulo = Capitulo::create([
             'denominacion' => $this->denominacion,
-            'precio' => $this->precio
         ]);
 
         add_user_log([
-            'title'        => 'Cargo nuevo registrado '.$this->denominacion,
-            'link'         => route('admin.cajas.conceptos', ['concepto' => $concepto->id]),
-            'reference_id' => $concepto->id,
-            'section'      => 'Conceptos',
+            'title'        => 'Capítulo nuevo registrado '.$this->denominacion,
+            'link'         => route('admin.colegios.capitulos', ['capitulo' => $capitulo->id]),
+            'reference_id' => $capitulo->id,
+            'section'      => 'Capítulos',
             'type'         => 'created'
         ]);
 
-        $this->emitTo('admin.cajas.conceptos.conceptos','alert','Concepto creado satisfactoriamente');
+        $this->emitTo('admin.colegios.capitulos.capitulos','alert','Capítulo creado satisfactoriamente');
         
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');

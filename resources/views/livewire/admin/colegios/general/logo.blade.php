@@ -1,10 +1,10 @@
 <div class="card">
 
-    <h3>Logo del Colegio</h3>
+    <h3 class="mb-4">Logo del Colegio</h3>
 
     @include('errors.messages')
 
-    <x-form wire:submit.prevent="update" method="put">
+    <x-form wire:submit.prevent="update" method="put" class="mb-4">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <x-button>Save</x-button>
+        <x-button class="mt-4">Save</x-button>
 
     </x-form>
 
