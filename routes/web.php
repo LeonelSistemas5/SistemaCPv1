@@ -9,20 +9,21 @@ use App\Http\Controllers\Auth\TwoFaController;
 use App\Http\Livewire\Admin\AuditTrails;
 use App\Http\Livewire\Admin\Cajas\Conceptos\Conceptos;
 use App\Http\Livewire\Admin\Cajas\Pagos\Pagos;
-use App\Http\Livewire\Admin\Colegios\Colegios;
+use App\Http\Livewire\Admin\Colegios\Capitulos\Capitulos;
+use App\Http\Livewire\Admin\Colegios\General\Colegios;
+use App\Http\Livewire\Admin\Colegios\Sedes\Sedes;
 use App\Http\Livewire\Admin\Cursos\Cursos;
 use App\Http\Livewire\Admin\Cursos\Inscritos;
 use App\Http\Livewire\Admin\Dashboard;
-use App\Http\Livewire\Admin\Reportes\Reportes;
-use App\Http\Livewire\Admin\Roles\Edit;
-use App\Http\Livewire\Admin\Roles\Roles;
 use App\Http\Livewire\Admin\SentEmails\SentEmails;
 use App\Http\Livewire\Admin\SentEmails\SentEmailsBody;
 use App\Http\Livewire\Admin\Settings\Settings;
-use App\Http\Livewire\Admin\Tramites\Tramites;
 use App\Http\Livewire\Admin\Users\EditUser;
 use App\Http\Livewire\Admin\Users\ShowUser;
 use App\Http\Livewire\Admin\Users\Users;
+use App\Http\Livewire\Admin\Usuarios\Administradores\Administradores;
+use App\Http\Livewire\Admin\Usuarios\Colegiados\Colegiados;
+use App\Http\Livewire\Admin\Usuarios\Roles\Roles;
 use App\Http\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -56,9 +57,8 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
 
     Route::get('/', Dashboard::class)->name('admin');
 
-    Route::get('users', Users::class)->name('admin.users.index');
-    Route::get('users/{user}/edit', EditUser::class)->name('admin.users.edit');
-    Route::get('users/{user}', ShowUser::class)->name('admin.users.show');
+    Route::get('profile/{user}', ShowUser::class)->name('admin.profile');
+    Route::get('profile/{user}/edit', EditUser::class)->name('admin.profile.edit');
 
     Route::get('cursos', Cursos::class)->name('admin.cursos.index');
     // Route::get('cursos/inscritos/{curso}', [Inscritos::class, 'ver'])->name('admin.cursos.inscritos');
@@ -72,7 +72,15 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
 
     Route::get('reportes')->name('admin.reportes.index');
 
-    Route::get('colegios', Colegios::class)->name('admin.colegios.index');
+    Route::get('usuarios')->name('admin.usuarios');
+    Route::get('usuarios/administradores', Administradores::class)->name('admin.usuarios.administradores');
+    Route::get('usuarios/colegiados', Colegiados::class)->name('admin.usuarios.colegiados');
+    Route::get('usuarios/roles', Roles::class)->name('admin.usuarios.roles');
+
+    Route::get('colegios')->name('admin.colegios');
+    Route::get('colegios/general',Colegios::class)->name('admin.colegios.general');
+    Route::get('colegios/sedes',Sedes::class)->name('admin.colegios.sedes');
+    Route::get('colegios/capitulos',Capitulos::class)->name('admin.colegios.capitulos');
 
     Route::get('settings/audit-trails', AuditTrails::class)->name('admin.settings.audit-trails.index');
     Route::get('settings/sent-emails', SentEmails::class)->name('admin.settings.sent-emails');
@@ -82,6 +90,4 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
 //Admin only routes
 Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('settings/system-settings', Settings::class)->name('admin.settings');
-    Route::get('settings/roles', Roles::class)->name('admin.settings.roles.index');
-    Route::get('settings/roles/{role}/edit', Edit::class)->name('admin.settings.roles.edit');
 });

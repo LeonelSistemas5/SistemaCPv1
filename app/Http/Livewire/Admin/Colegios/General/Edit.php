@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Colegios;
+declare(strict_types=1);
+
+namespace App\Http\Livewire\Admin\Colegios\General;
 
 use App\Http\Livewire\Base;
 use App\Models\Colegio;
@@ -30,7 +32,7 @@ class Edit extends Base
 
     public function render(): View
     {
-        return view('livewire.admin.colegios.edit');
+        return view('livewire.admin.colegios.general.edit');
     }
 
     public function rules(): array
@@ -73,7 +75,7 @@ class Edit extends Base
 
         add_user_log([
             'title'        => 'Datos del colegio actualizados',
-            'link'         => route('admin.colegios.index'),
+            'link'         => route('admin.colegios.general'),
             'reference_id' => auth()->id(),
             'section'      => 'Colegios',
             'type'         => 'Update'

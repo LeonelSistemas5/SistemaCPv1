@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Colegios;
+declare(strict_types=1);
+
+namespace App\Http\Livewire\Admin\Colegios\General;
 
 use App\Http\Livewire\Base;
 use App\Models\Colegio;
@@ -14,6 +16,7 @@ use Livewire\WithFileUploads;
 use function add_user_log;
 use function flash;
 use function view;
+
 
 class Logo extends Base
 {
@@ -40,9 +43,9 @@ class Logo extends Base
         ];
     }
 
-    public function render():View
+    public function render(): View
     {
-        return view('livewire.admin.colegios.logo');
+        return view('livewire.admin.colegios.general.logo');
     }
 
     /**
@@ -98,7 +101,7 @@ class Logo extends Base
 
         add_user_log([
             'title'        => 'Logo del colegio actualizado',
-            'link'         => route('admin.colegios.index'),
+            'link'         => route('admin.colegios.general'),
             'reference_id' => auth()->id(),
             'section'      => 'Colegios',
             'type'         => 'Update'

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Admin\Cajas\Conceptos;
+namespace App\Http\Livewire\Admin\Colegios\Capitulos;
 
 use App\Http\Livewire\Base;
-use App\Models\Concepto;
+use App\Models\Capitulo;
 use Illuminate\Contracts\View\View;
 use Livewire\WithPagination;
 use Illuminate\Validation\ValidationException;
@@ -13,12 +13,11 @@ use Illuminate\Validation\ValidationException;
 use function abort_if_cannot;
 use function view;
 
-class Conceptos extends Base
+class Capitulos extends Base
 {
     use WithPagination;
 
     public    $denominacion      = '';
-    public    $precio            = '';
 
     public    $paginate   = '';
     public    $search       = '';
@@ -45,7 +44,7 @@ class Conceptos extends Base
 
     public function render(): View
     {
-        return view('livewire.admin.cajas.conceptos.index');
+        return view('livewire.admin.colegios.capitulos.index');
     }
 
     public function updating(): void
@@ -61,7 +60,7 @@ class Conceptos extends Base
 
     public function builder()
     {
-        return Concepto::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        return Capitulo::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
     }
 
     public function sortBy(string $field): void
@@ -75,7 +74,7 @@ class Conceptos extends Base
         $this->sortField = $field;
     }
 
-    public function conceptos()
+    public function capitulos()
     {
         $query = $this->builder();
 
@@ -88,9 +87,7 @@ class Conceptos extends Base
 
     public function edit($id): void
     {
-        $concepto = $this->builder()->findOrFail($id);
-        $this->denominacion = $concepto->denominacion;
-        $this->precio = $concepto->precio;
+        $this->denominacion = $this->builder()->findOrFail($id)->denominacion;
     }
 
     public function update($id): void
@@ -101,14 +98,14 @@ class Conceptos extends Base
         ]);
         
         add_user_log([
-            'title'        => 'Concepto actualizado '.$this->denominacion,
-            'link'         => route('admin.cajas.conceptos', ['concepto' => $id]),
+            'title'        => 'Capítulo actualizado '.$this->denominacion,
+            'link'         => route('admin.colegios.capitulos', ['capítulo' => $id]),
             'reference_id' => $id,
-            'section'      => 'Conceptos',
+            'section'      => 'Capítulos',
             'type'         => 'updated'
         ]);
 
-        flash('Concepto actualizado satisfactoriamente')->success();
+        flash('Capítulo actualizado satisfactoriamente')->success();
 
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');
@@ -116,26 +113,26 @@ class Conceptos extends Base
 
     public function delete($id): void
     {
-        abort_if_cannot('delete_concepto');
+        abort_if_cannot('delete_cargo');
 
         $this->builder()->findOrFail($id)->delete();
 
         add_user_log([
-            'title'        => 'Concepto eliminado '.$this->denominacion,
-            'link'         => route('admin.cajas.conceptos', ['concepto' => $id]),
+            'title'        => 'Capítulo eliminado '.$this->denominacion,
+            'link'         => route('admin.colegios.capitulos', ['capitulo' => $id]),
             'reference_id' => $id,
-            'section'      => 'Conceptos',
+            'section'      => 'Capítulos',
             'type'         => 'deleted'
         ]);
 
-        flash('Concepto eliminado satisfactoriamente')->error();
+        flash('Capítulo eliminado satisfactoriamente')->error();
         $this->reset();
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function cleanModal(): void
+    public function cancel(): void
     {
-        $this->denominacion = '';
-        $this->precio = '';
+        $this->reset();
+        $this->dispatchBrowserEvent('close-modal');
     }
 }
