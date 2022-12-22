@@ -14,7 +14,7 @@ use Carbon\Carbon;
 use function abort_if_cannot;
 use function view;
 
-class Cursos extends Base
+class Inscritos extends Base
 {
     use WithPagination;
 
@@ -59,10 +59,16 @@ class Cursos extends Base
         $this->validateOnly($propertyName);
     }
 
-    public function render(): View
+    public function render():view
     {
-        return view('livewire.admin.cursos.index');
+        return view('livewire.admin.cursos.inscritos');
     }
+
+    // public function ver($curso)
+    // {
+    //     $curs = $curso;
+    //     return view('livewire.admin.cursos.inscritos', compact('curs'));
+    // }
 
     public function updating(): void
     {
@@ -71,13 +77,13 @@ class Cursos extends Base
 
     public function alert($alert): void
     {
-        flash($alert);
-        $this->render();
+        // flash($alert);
+        // $this->render();
     }
 
     public function builder()
     {
-        return Curso::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        return Cursos::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
     }
 
     public function sortBy(string $field): void
@@ -91,7 +97,7 @@ class Cursos extends Base
         $this->sortField = $field;
     }
 
-    public function cursos()
+    public function inscritos()
     {
         $query = $this->builder();
 
@@ -118,11 +124,11 @@ class Cursos extends Base
         $this->validate();
         $this->builder()->findOrFail($id)->update([
             'denominacion' => $this->denominacion,
-            'precio_certificado' =>$this->precio_certificado,
-            'fecha_inicio' =>$this->fecha_inicio,
-            'fecha_fin' =>$this->fecha_fin,
-            'temario' =>$this->temario,
-            'estado' =>$this->estado,
+            'precio_certificado' => $this->precio_certificado,
+            'fecha_inicio' => $this->fecha_inicio,
+            'fecha_fin' => $this->fecha_fin,
+            'temario' => $this->temario,
+            'estado' => $this->estado,
         ]);
 
         add_user_log([

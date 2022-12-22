@@ -11,6 +11,7 @@ use App\Http\Livewire\Admin\Cajas\Conceptos\Conceptos;
 use App\Http\Livewire\Admin\Cajas\Pagos\Pagos;
 use App\Http\Livewire\Admin\Colegios\Colegios;
 use App\Http\Livewire\Admin\Cursos\Cursos;
+use App\Http\Livewire\Admin\Cursos\Inscritos;
 use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Admin\Reportes\Reportes;
 use App\Http\Livewire\Admin\Roles\Edit;
@@ -60,6 +61,8 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
     Route::get('users/{user}', ShowUser::class)->name('admin.users.show');
 
     Route::get('cursos', Cursos::class)->name('admin.cursos.index');
+    // Route::get('cursos/inscritos/{curso}', [Inscritos::class, 'ver'])->name('admin.cursos.inscritos');
+    Route::get('cursos/inscritos/{curso}', Inscritos::class)->name('admin.cursos.inscritos');
 
     Route::get('cajas')->name('admin.cajas');
     Route::get('cajas/pagos', Pagos::class)->name('admin.cajas.pagos');
