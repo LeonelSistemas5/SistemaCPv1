@@ -48,16 +48,19 @@
                         <td class="border border-slate-200">{{ $item->denominacion }}</td>
                         <td class="border border-slate-200">
                             @if($item->estado=="0")
-                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-900">Esperando</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 dark:bg-indigo-200 dark:text-indigo-900">Esperando</span>
                             @elseif($item->estado==1)
-                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">En proceso</span>
+                            <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 dark:bg-green-200 dark:text-green-900">En proceso</span>
                             @else
-                            <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Finalizado</span>
+                            <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 dark:bg-red-200 dark:text-red-900">Finalizado</span>
                             @endif
                         </td>
 
                         <td class="border border-slate-200">
                             <div class="flex space-x-2">
+
+                                <a href="{{ route('admin.cursos.inscritos', ['curso' => $item->id]) }}" class="btn btn-indigo"><i class="fa-solid fa-user-group"></i></a>
+
                                 <x-modal>
                                     <x-slot name="trigger">
                                         <a href="#" class="btn btn-blue" @click="on = true" wire:click="edit({{ $item->id }})"><i class="fa-solid fa-eye"></i></a>

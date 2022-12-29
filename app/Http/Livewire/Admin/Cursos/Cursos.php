@@ -18,17 +18,17 @@ class Cursos extends Base
 {
     use WithPagination;
 
-    public    $denominacion      = '';
-    public    $precio_certificado = '';
-    public    $fecha_inicio      = '';
-    public    $fecha_fin      = '';
-    public    $temario      = '';
-    public    $estado      = '';
+    public $denominacion = '';
+    public $precio_certificado = '';
+    public $fecha_inicio = '';
+    public $fecha_fin = '';
+    public $temario = '';
+    public $estado = '';
 
-    public    $paginate   = '';
-    public    $search       = '';
-    public    $sortField  = 'id';
-    public    $sortAsc    = false;
+    public $paginate = '';
+    public $search = '';
+    public $sortField = 'id';
+    public $sortAsc = true;
     protected $listeners  = ['alert' => 'alert'];
 
     protected array $rules = [
@@ -95,9 +95,9 @@ class Cursos extends Base
     {
         $query = $this->builder();
 
-        // if ($this->search) {
-        //     $query->where('denominacion', 'like', '%'.$this->search.'%');
-        // }
+        if ($this->search) {
+            $query->where('denominacion', 'like', '%' . $this->search . '%');
+        }
 
         return $query->paginate($this->paginate);
     }
@@ -118,11 +118,11 @@ class Cursos extends Base
         $this->validate();
         $this->builder()->findOrFail($id)->update([
             'denominacion' => $this->denominacion,
-            'precio_certificado' =>$this->precio_certificado,
-            'fecha_inicio' =>$this->fecha_inicio,
-            'fecha_fin' =>$this->fecha_fin,
-            'temario' =>$this->temario,
-            'estado' =>$this->estado,
+            'precio_certificado' => $this->precio_certificado,
+            'fecha_inicio' => $this->fecha_inicio,
+            'fecha_fin' => $this->fecha_fin,
+            'temario' => $this->temario,
+            'estado' => $this->estado,
         ]);
 
         add_user_log([

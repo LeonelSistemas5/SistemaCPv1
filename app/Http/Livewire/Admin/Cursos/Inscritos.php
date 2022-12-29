@@ -18,37 +18,27 @@ class Inscritos extends Base
 {
     use WithPagination;
 
-    public    $denominacion      = '';
-    public    $precio_certificado = '';
-    public    $fecha_inicio      = '';
-    public    $fecha_fin      = '';
-    public    $temario      = '';
-    public    $estado      = '';
+    public Curso $curso;
 
-    public    $paginate   = '';
-    public    $search       = '';
-    public    $sortField  = 'id';
-    public    $sortAsc    = false;
+    public $idCurso = '';
+
+    // public $codigo = '';
+    // public $asistencia = 0;
+    // public $nota_final = 0;
+    public $rol_curso = '';
+
+    public $paginate = '';
+    public $search = '';
+    public $sortField = 'id';
+    public $sortAsc = false;
     protected $listeners  = ['alert' => 'alert'];
 
     protected array $rules = [
-        'denominacion' => 'required|string|max:191',
-        'precio_certificado' => 'required',
-        'fecha_inicio' => 'required',
-        'fecha_fin' => 'required',
-        'temario' => 'required',
-        'estado' => 'required'
+        'rol_curso' => 'required',
     ];
 
     protected array $messages = [
-        'denominacion.required' => 'La denominación es requerida',
-        'denominacion.max' => 'La denominación no debe exceder de 191 caracteres',
-
-        'precio_certificado.required' => 'El precio es requerida',
-        'fecha_inicio.required' => 'La fecha de inicio es requerida',
-        'fecha_fin.required' => 'La fecha de fin es requerida',
-        'temario.required' => 'El temario es requerida',
-        'estado.required' => 'El estado es requerida',
+        'rol_curso.required' => 'El rol_curso es requerida',
     ];
 
     /**
@@ -59,16 +49,10 @@ class Inscritos extends Base
         $this->validateOnly($propertyName);
     }
 
-    public function render():view
+    public function render(): view
     {
         return view('livewire.admin.cursos.inscritos');
     }
-
-    // public function ver($curso)
-    // {
-    //     $curs = $curso;
-    //     return view('livewire.admin.cursos.inscritos', compact('curs'));
-    // }
 
     public function updating(): void
     {
@@ -77,13 +61,13 @@ class Inscritos extends Base
 
     public function alert($alert): void
     {
-        // flash($alert);
-        // $this->render();
+        flash($alert);
+        $this->render();
     }
 
     public function builder()
     {
-        return Cursos::orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        return Inscripcione::where('curso_id', $this->curso->id)->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
     }
 
     public function sortBy(string $field): void
@@ -101,73 +85,61 @@ class Inscritos extends Base
     {
         $query = $this->builder();
 
-        // if ($this->search) {
-        //     $query->where('denominacion', 'like', '%'.$this->search.'%');
-        // }
+        if ($this->search) {
+            $query->where('codigo', 'like', '%' . $this->search . '%');
+        }
 
         return $query->paginate($this->paginate);
     }
 
     public function edit($id): void
     {
-        $curso = $this->builder()->findOrFail($id);
-        $this->denominacion = $curso->denominacion;
-        $this->precio_certificado = $curso->precio_certificado;
-        $this->fecha_inicio = Carbon::parse($curso->fecha_inicio)->format('Y-m-d');
-        $this->fecha_fin = Carbon::parse($curso->fecha_fin)->format('Y-m-d');
-        $this->temario = $curso->temario;
-        $this->estado = $curso->estado;
+        $incripcion = $this->builder()->findOrFail($id);
+        $this->rol_curso = $incripcion->rol_curso;
     }
 
     public function update($id): void
     {
         $this->validate();
         $this->builder()->findOrFail($id)->update([
-            'denominacion' => $this->denominacion,
-            'precio_certificado' => $this->precio_certificado,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin,
-            'temario' => $this->temario,
-            'estado' => $this->estado,
+            'rol_curso' => $this->rol_curso == '0' ? '1' : '0',
         ]);
 
-        add_user_log([
-            'title'        => 'Curso actualizado ' . $this->denominacion,
-            'link'         => route('admin.cursos.index', ['curso' => $id]),
-            'reference_id' => $id,
-            'section'      => 'Cursos',
-            'type'         => 'updated'
-        ]);
+        // add_user_log([
+        //     'title'        => 'Inscripción actualizada ' . $this->rol_curso,
+        //     'link'         => route('admin.cursos.inscritos', ['inscritos' => $id]),
+        //     'reference_id' => $id,
+        //     'section'      => 'inscritos',
+        //     'type'         => 'updated'
+        // ]);
+        flash('Se cambio de rol de satisfactoriamente')->success();
 
-        flash('Curso actualizado satisfactoriamente')->success();
-
-        $this->reset();
+        // dd("ds");
+        // $this->reset();
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function delete($id): void
-    {
-        abort_if_cannot('delete_curso');
+    // public function delete($id): void
+    // {
+    //     abort_if_cannot('delete_curso');
 
-        $this->builder()->findOrFail($id)->delete();
+    //     $this->builder()->findOrFail($id)->delete();
 
-        add_user_log([
-            'title'        => 'Curso eliminado ' . $this->denominacion,
-            'link'         => route('admin.cursos.index', ['curso' => $id]),
-            'reference_id' => $id,
-            'section'      => 'Cursos',
-            'type'         => 'deleted'
-        ]);
+    //     add_user_log([
+    //         'title'        => 'Curso eliminado ' . $this->denominacion,
+    //         'link'         => route('admin.cursos.index', ['curso' => $id]),
+    //         'reference_id' => $id,
+    //         'section'      => 'Cursos',
+    //         'type'         => 'deleted'
+    //     ]);
 
-        flash('Curso eliminado satisfactoriamente')->error();
-        $this->reset();
-        $this->dispatchBrowserEvent('close-modal');
-    }
+    //     flash('Curso eliminado satisfactoriamente')->error();
+    //     $this->reset();
+    //     $this->dispatchBrowserEvent('close-modal');
+    // }
 
     public function cleanModal(): void
     {
-        $this->denominacion = '';
-        $this->precio_certificado = '';
-        $this->temario = '';
+        $this->rol_curso = '';
     }
 }
