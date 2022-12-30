@@ -14,12 +14,14 @@ class SedeDatabaseSeeder extends Seeder
         Sede::firstOrCreate(['denominacion' => 'Sede Puno Principal'],[
             'denominacion' => 'Sede Puno Principal',
             'direccion' => 'Av. Simon Bolivar 234',
+            'telefono' => '456879',
             'celular' => '987537547'
         ]);
 
         Sede::firstOrCreate(['denominacion' => 'Sede Juliaca'],[
             'denominacion' => 'Sede Juliaca',
             'direccion' => 'Jr Tacna 456',
+            'telefono' => '456875',
             'celular' => '987537852'
         ]);
     }

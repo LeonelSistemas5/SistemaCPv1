@@ -32,13 +32,7 @@
 <x-nav.link route="admin" icon="fas fa-home">Dashboard</x-nav.link>
 @endif
 
-@if(can('view_users'))
-<x-nav.link route="admin.users.index" icon="fas fa-users">Users</x-nav.link>
-@endif
-
-<x-nav.group label="Cursos" route="admin.cursos.index" icon="fa-solid fa-book">
-
-</x-nav.group>
+<x-nav.link route="admin.cursos.index" icon="fa-solid fa-book">Cursos</x-nav.link>
 
 <x-nav.group label="Cajas" route="admin.cajas" icon="fa-solid fa-cash-register">
     <x-nav.group-item route="admin.cajas.pagos" icon="far fa-circle">Pagos</x-nav.group-item>
@@ -53,7 +47,19 @@
 
 </x-nav.group>
 
-<x-nav.link route="admin.colegios.index" icon="fa-sharp fa-solid fa-building-columns">Colegio</x-nav.link>
+@if(can('view_users'))
+<x-nav.group label="Usuarios" route="admin.usuarios" icon="fas fa-users">
+    <x-nav.group-item route="admin.usuarios.administradores" icon="far fa-circle">Administradores</x-nav.group-item>
+    <x-nav.group-item route="admin.usuarios.colegiados" icon="far fa-circle">Colegiados</x-nav.group-item>
+    <x-nav.group-item route="admin.usuarios.roles" icon="far fa-circle">Roles</x-nav.group-item>
+</x-nav.group>
+@endif
+
+<x-nav.group label="Colegio" route="admin.colegios" icon="fa-sharp fa-solid fa-building-columns">
+    <x-nav.group-item route="admin.colegios.general" icon="far fa-circle">General</x-nav.group-item>
+    <x-nav.group-item route="admin.colegios.sedes" icon="far fa-circle">Sedes</x-nav.group-item>
+    <x-nav.group-item route="admin.colegios.capitulos" icon="far fa-circle">Capitulos</x-nav.group-item>
+</x-nav.group>
 
 @if(can('view_audit_trails') || can('view_sent_emails'))
 <x-nav.group label="Settings" route="admin.settings" icon="fas fa-cogs">
@@ -67,7 +73,6 @@
 
     @if(is_admin())
     <x-nav.group-item route="admin.settings" icon="far fa-circle">System Settings</x-nav.group-item>
-    <x-nav.group-item route="admin.settings.roles.index" icon="far fa-circle">Roles</x-nav.group-item>
     @endif
 </x-nav.group>
 @endif

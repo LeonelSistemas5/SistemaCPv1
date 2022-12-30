@@ -9,6 +9,6 @@ class Pagos extends Base
 {
     public function render(): View
     {
-        return view('livewire.admin.cajas.pagos.pagos');
+        return view('livewire.admin.cajas.pagos.index');
     }
 }
