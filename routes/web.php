@@ -18,6 +18,7 @@ use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Admin\SentEmails\SentEmails;
 use App\Http\Livewire\Admin\SentEmails\SentEmailsBody;
 use App\Http\Livewire\Admin\Settings\Settings;
+use App\Http\Livewire\Admin\Tramites\OficinaShow;
 use App\Http\Livewire\Admin\Users\EditUser;
 use App\Http\Livewire\Admin\Users\ShowUser;
 use App\Http\Livewire\Admin\Users\Users;
@@ -68,6 +69,7 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
     Route::get('cajas/conceptos', Conceptos::class)->name('admin.cajas.conceptos');
 
     Route::get('tramites')->name('admin.tramites.index');
+    Route::get('tramites/oficina', OficinaShow::class)->name('admin.tramites.oficina');
 
     Route::get('reportes')->name('admin.reportes.index');
 

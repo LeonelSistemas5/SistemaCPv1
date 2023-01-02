@@ -40,7 +40,7 @@
 </x-nav.group>
 
 <x-nav.group label="Tramites" route="admin.tramites.index" icon="fa-solid fa-folder">
-
+    <x-nav.group-item route="admin.tramites.oficina" icon="far fa-circle">Oficinas</x-nav.group-item>
 </x-nav.group>
 
 <x-nav.group label="Reportes" route="admin.reportes.index" icon="fa-solid fa-file">
