@@ -4,27 +4,30 @@
 
 **Comando para clonar el repositorio**
 ```shell
-git clone -b develop https://github.com/LeonelSistemas5/SistemaCPv1.git
+git clone https://github.com/LeonelSistemas5/SistemaCPv1.git
 ```
 
 **Comandos de inicio:**
 ```shell
-npm install
-```
-```shell
-npm run dev
-```
-```shell
 composer install
 ```
 ```shell
-composer update
+npm install
+```
+```shell
+php artisan key:generate
+```
+```shell
+php artisan storage:link
 ```
 ```shell
 php artisan migrate --seed
 ```
 ```shell
-php artisan storage:link
+php artisan migrate:fresh --seed
+```
+```shell
+npm run dev
 ```
 ```shell
 php artisan serve
