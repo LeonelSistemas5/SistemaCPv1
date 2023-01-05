@@ -19,6 +19,7 @@ use App\Http\Livewire\Admin\SentEmails\SentEmails;
 use App\Http\Livewire\Admin\SentEmails\SentEmailsBody;
 use App\Http\Livewire\Admin\Settings\Settings;
 use App\Http\Livewire\Admin\Tramites\OficinaShow;
+use App\Http\Livewire\Admin\Tramites\RequisitosShow;
 use App\Http\Livewire\Admin\Tramites\TypeTramite;
 use App\Http\Livewire\Admin\Users\EditUser;
 use App\Http\Livewire\Admin\Users\ShowUser;
@@ -75,6 +76,7 @@ Route::middleware(['web', 'auth', 'activeUser', 'IpCheckMiddleware'])->prefix('a
     Route::get('tramites')->name('admin.tramites.index');
     Route::get('tramites/oficina', OficinaShow::class)->name('admin.tramites.oficina');
     Route::get('tramites/tipotramite', TypeTramite::class)->name('admin.tramites.tipotramite');
+    Route::get('tramites/requisito', RequisitosShow::class)->name('admin.tramites.requisito');
 
     Route::get('reportes')->name('admin.reportes.index');
 
