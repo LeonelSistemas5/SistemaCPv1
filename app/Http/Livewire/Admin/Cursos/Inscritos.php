@@ -92,6 +92,28 @@ class Inscritos extends Base
         return $query->paginate($this->paginate);
     }
 
+    public function curso()
+    {
+        return $this->curso;
+    }
+
+    // public function usuarios()
+    // {
+    //     $a = Inscripcione::select(
+    //         "users.name",
+    //     )
+    //         ->rightJoin("users", "users.id", "=", "inscripciones.user_id")
+    //         ->where('inscripciones.id', "=", null)->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+    //         // ->where('inscripciones.id', "=", null)
+    //         // ->get();
+    //     // dd($a);
+    //     if ($this->search) {
+    //         $a->where('name', 'like', '%' . $this->search . '%');
+    //     }
+    //     // dd($this->search);
+    //     return $a;
+    // }
+
     public function edit($id): void
     {
         $incripcion = $this->builder()->findOrFail($id);
@@ -119,24 +141,24 @@ class Inscritos extends Base
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    // public function delete($id): void
-    // {
-    //     abort_if_cannot('delete_curso');
+    public function delete($id): void
+    {
+        abort_if_cannot('delete_inscrito');
 
-    //     $this->builder()->findOrFail($id)->delete();
+        $this->builder()->findOrFail($id)->delete();
 
-    //     add_user_log([
-    //         'title'        => 'Curso eliminado ' . $this->denominacion,
-    //         'link'         => route('admin.cursos.index', ['curso' => $id]),
-    //         'reference_id' => $id,
-    //         'section'      => 'Cursos',
-    //         'type'         => 'deleted'
-    //     ]);
+        // add_user_log([
+        //     'title'        => 'Curso eliminado ' . $this->denominacion,
+        //     'link'         => route('admin.cursos.index', ['curso' => $id]),
+        //     'reference_id' => $id,
+        //     'section'      => 'Cursos',
+        //     'type'         => 'deleted'
+        // ]);
 
-    //     flash('Curso eliminado satisfactoriamente')->error();
-    //     $this->reset();
-    //     $this->dispatchBrowserEvent('close-modal');
-    // }
+        flash('Se eliminó correctamente un participante.')->error();
+        $this->reset();
+        $this->dispatchBrowserEvent('close-modal');
+    }
 
     public function cleanModal(): void
     {
