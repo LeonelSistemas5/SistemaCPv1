@@ -25,6 +25,7 @@ use App\Http\Livewire\Admin\Users\EditUser;
 use App\Http\Livewire\Admin\Users\ShowUser;
 use App\Http\Livewire\Admin\Users\Users;
 use App\Http\Livewire\Vercursos;
+use App\Http\Livewire\Curso_;
 use App\Http\Livewire\Admin\Usuarios\Administradores\Administradores;
 use App\Http\Livewire\Admin\Usuarios\Colegiados\Colegiados;
 use App\Http\Livewire\Admin\Usuarios\Roles\Roles;
@@ -34,6 +35,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Welcome::class);
 
 Route::get('vercursos', Vercursos::class)->name('vercursos');
+Route::get('curso/{{curso}}', Curso_::class)->name('curso');
 
 //unauthenticated
 Route::middleware(['web', 'guest'])->group(function () {
