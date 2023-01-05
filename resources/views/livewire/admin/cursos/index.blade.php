@@ -13,7 +13,7 @@
 
         <div class="grid items-center grid-cols-1 gap-0 md:grid-cols-4 md:gap-4">
             <div class="col-span-1 md:col-span-3">
-                <x-form.input type="search" name="search" wire:model="search" label="none" class="mt-0 md:mt-2" placeholder="Buscar conceptos">
+                <x-form.input type="search" name="search" wire:model="search" label="none" class="mt-0 md:mt-2" placeholder="Buscar">
 
                 </x-form.input>
             </div>

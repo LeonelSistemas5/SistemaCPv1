@@ -23,6 +23,7 @@ use App\Http\Livewire\Admin\Tramites\TypeTramite;
 use App\Http\Livewire\Admin\Users\EditUser;
 use App\Http\Livewire\Admin\Users\ShowUser;
 use App\Http\Livewire\Admin\Users\Users;
+use App\Http\Livewire\Vercursos;
 use App\Http\Livewire\Admin\Usuarios\Administradores\Administradores;
 use App\Http\Livewire\Admin\Usuarios\Colegiados\Colegiados;
 use App\Http\Livewire\Admin\Usuarios\Roles\Roles;
@@ -30,6 +31,8 @@ use App\Http\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Welcome::class);
+
+Route::get('vercursos', Vercursos::class)->name('vercursos');
 
 //unauthenticated
 Route::middleware(['web', 'guest'])->group(function () {
