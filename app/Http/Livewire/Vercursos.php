@@ -22,10 +22,11 @@ class Vercursos extends Component
 
         return $query;
     }
-    public function inscribir($curso){
-        // if(isset(Auth::User())){
-        //     redirect("/curso_//$curso");
-        // }
-        return redirect("/login");
-    }
+    // public function inscribir($curso){
+    //     // if(isset(Auth::User())){
+    //     //     redirect("/curso_//$curso");
+    //     // }
+    //     dd($curso);
+    //     return redirect("/login");
+    // }
 }

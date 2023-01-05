@@ -8,8 +8,8 @@ use App\Models\Curso;
 
 class Curso_ extends Component
 {
-    public Curso $sd;
-    public User $curso;
+    public Curso $curso;
+    public User $user;
 
     public function render()
     {
