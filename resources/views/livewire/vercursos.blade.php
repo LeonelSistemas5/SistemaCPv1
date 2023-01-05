@@ -1,4 +1,21 @@
-<div class="p-5">
+<x-guest-layout>
+    <nav class="mb-4">
+        <div class="w-full bg-white p-5 shadow rounded">
+            @if (Route::has('login'))
+            <div class="flex justify-end">
+                @auth
+                <a href="{{ route('admin') }}" class="btn text-sm text-gray-700 dark:text-gray-200">Dashboard</a>
+                @else
+                <a href="{{ route('login') }}" class="btn text-sm text-gray-700 dark:text-gray-200">Iniciar Sesión</a>
+
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="btn ml-4 text-sm text-gray-700 dark:text-gray-200">Registrarse</a>
+                @endif
+                @endauth
+            </div>
+            @endif
+        </div>
+    </nav>
     <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3">
         @if(count($this->cursos())>0)
         @foreach($this->cursos() as $item)
@@ -23,4 +40,4 @@
         @endforeach
         @endif
     </div>
-</div>
+</x-guest-layout>
