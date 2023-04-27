@@ -1,5 +1,7 @@
 # SISTEMA DE COLEGIO PROFESIONAL CON STACK (TALL)
 
+![thumb-1920-480538](https://user-images.githubusercontent.com/49106113/234997104-ae65bd8d-0956-4443-8d8f-c985af3b67f2.png)
+
 <img height = 380 src="https://i.ytimg.com/vi/cgofG-VxdAs/maxresdefault.jpg"></img>
 
 **Comando para clonar el repositorio**
